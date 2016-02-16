@@ -1,6 +1,7 @@
 /* Declare and Define the functions here that will make the function calls below work properly */
-
-
+var first = function(arr, callback) {
+  callback(names[0]);
+};
 
 var names = ['Tyler', 'Cahlan', 'Ryan', 'Colt', 'Tyler', 'Blaine', 'Cahlan'];
 first(names, function(firstName){
@@ -9,11 +10,10 @@ first(names, function(firstName){
 
 
 
-
 /* NEXT PROBLEM - NEXT PROBLEM - NEXT PROBLEM */
-
-
-
+var last = function(arr, cb) {
+  cb(names[names.length -1]);
+};
 
 var names = ['Tyler', 'Cahlan', 'Ryan', 'Colt', 'Tyler', 'Blaine', 'Cahlan'];
 last(names, function(lastName){
@@ -26,24 +26,36 @@ last(names, function(lastName){
 /* NEXT PROBLEM - NEXT PROBLEM - NEXT PROBLEM */
 
 //have the contains function return a boolean value for if the name is in the array or not.
-
+var contains = function(str, arr, cb) {
+  for(var i = 0; i < arr.length; i++) {
+    if(str === arr[i]) {
+      return cb(true);
+    }
+  }
+  return cb(false);
+};
 
 var names = ['Tyler', 'Cahlan', 'Ryan', 'Colt', 'Tyler', 'Blaine', 'Cahlan'];
 contains('Colt', names, function(yes){
   if(yes){
     console.log('Colt is in the array');
   } else {
-    console.log('Colt is not in the list');
+    console.log('Colt is not in the array');
   }
 });
 
 
 
-
 /* NEXT PROBLEM - NEXT PROBLEM - NEXT PROBLEM */
+var map = function(arr, cb) {
+  var newArr = [];
 
-
-
+  for(var i = 0; i < arr.length; i++) {
+    var newNum = cb(arr[i]);
+    newArr.push(newNum);
+  }
+  return newArr;
+};
 
 var numbers = [1,2,3,4,5];
 //Produces a new array of values by mapping each value in list through a transformation function
@@ -52,12 +64,18 @@ map(numbers, function(num){
 });
 
 
-
-
 /* NEXT PROBLEM - NEXT PROBLEM - NEXT PROBLEM */
-
-
-
+var uniq = function(arr, callback) {
+  var tempArr = arr;
+  for(var i = arr.length - 1; i >= 0; i--) {
+    for(var j = 0; j < tempArr.length; j++) {
+      if(arr[i] === tempArr[j] && i !== j) {
+        arr.splice(i, 1);
+      }
+    }
+  }
+  callback(arr);
+};
 
 var names = ['Tyler', 'Cahlan', 'Ryan', 'Colt', 'Tyler', 'Blaine', 'Cahlan'];
 uniq(names, function(uniqArr){
@@ -65,11 +83,12 @@ uniq(names, function(uniqArr){
 });
 
 
-
-
 /* NEXT PROBLEM - NEXT PROBLEM - NEXT PROBLEM */
-
-
+var each = function(arr, callback) {
+  for(var i = 0; i < arr.length; i++){
+    callback(arr[i], i);
+  }
+}
 
 
 var names = ['Tyler', 'Cahlan', 'Ryan', 'Colt', 'Tyler', 'Blaine', 'Cahlan'];
@@ -81,7 +100,13 @@ each(names, function(item, indice){
 
 
 /* NEXT PROBLEM - NEXT PROBLEM - NEXT PROBLEM */
-
+var getUserById = function(id, arr, callback) {
+  for(var i = 0; i < arr.length; i++) {
+    if(arr[i].id === id) {
+      callback(arr[i]);
+    }
+  }
+}
 
 
 
@@ -113,12 +138,18 @@ getUserById('16t', users, function(user){
 
 
 /* NEXT PROBLEM - NEXT PROBLEM - NEXT PROBLEM */
-
-
+var find = function(arr, cb) {
+  for(var i = 0; i < arr.length; i++) {
+    cb(arr[i]);
+  }
+}
 
 
 //Looks through each value in the list, returning the first one that passes a truth test 
 var numbers  = [1, 2, 3, 4, 5, 6];
 find(numbers, function(num){ 
+  //console.log(num % 2 == 0);
   return num % 2 == 0; //should return 2
-})
+});
+
+
